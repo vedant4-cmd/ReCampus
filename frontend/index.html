@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ReCampus - Student Marketplace</title>
+
+    <meta
+        name="description"
+        content="ReCampus is a student marketplace for academic books, electronics, hostel items, stationery and campus products."
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+
+        <a class="navbar-brand fw-bold" href="#" onclick="showHome()">
+            <i class="bi bi-mortarboard-fill"></i>
+            ReCampus
+        </a>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+
+            <ul class="navbar-nav me-auto">
+
+                <li class="nav-item d-none" id="buyerDashboardNavItem">
+                    <a
+                        class="nav-link"
+                        href="#"
+                        onclick="showBuyerDashboard()"
+                    >
+                        Buyer Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="showHome()">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="showMarketplace()">
+                        Marketplace
+                    </a>
+                </li>
+
+                <li class="nav-item d-none" id="wishlistNavItem">
+                    <a class="nav-link" href="#" onclick="showWishlist()">
+                        <i class="bi bi-heart"></i>
+                        Wishlist
+                        <span
+                            class="badge bg-danger"
+                            id="wishlistCountBadge"
+                        >0</span>
+                    </a>
+                </li>
+
+                <li class="nav-item d-none" id="compareNavItem">
+                    <a class="nav-link" href="#" onclick="showComparison()">
+                        <i class="bi bi-arrow-left-right"></i>
+                        Compare
+                        <span
+                            class="badge bg-primary"
+                            id="compareCountBadge"
+                        >0</span>
+                    </a>
+                </li>
+
+                <li class="nav-item d-none" id="sellerDashboardNavItem">
+                    <a
+                        class="nav-link"
+                        href="#"
+                        onclick="showSellerDashboard()"
+                    >
+                        Seller Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item d-none" id="adminDashboardNavItem">
+                    <a
+                        class="nav-link"
+                        href="#"
+                        onclick="showAdminDashboard()"
+                    >
+                        Admin Dashboard
+                    </a>
+                </li>
+
+            </ul>
+
+            <div class="d-flex align-items-center">
+
+                <span
+                    class="text-white me-3 d-none"
+                    id="welcomeUser"
+                ></span>
+
+                <button
+                    class="btn btn-outline-light btn-sm me-2"
+                    id="loginNavButton"
+                    onclick="showLoginModal()"
+                >
+                    Login
+                </button>
+
+                <button
+                    class="btn btn-warning btn-sm me-2"
+                    id="registerNavButton"
+                    onclick="showRegisterModal()"
+                >
+                    Register
+                </button>
+
+                <button
+                    class="btn btn-outline-danger btn-sm d-none"
+                    id="logoutNavButton"
+                    onclick="logoutUser()"
+                >
+                    Logout
+                </button>
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<!-- MAIN CONTENT -->
+<main class="container py-4">
+
+    <!-- HOME -->
+    <section id="homeSection">
+
+        <div class="hero-section p-5 rounded-4 mb-4">
+
+            <div class="row align-items-center">
+
+                <div class="col-md-7">
+
+                    <span class="badge bg-warning text-dark mb-3">
+                        Student Marketplace
+                    </span>
+
+                    <h1 class="display-4 fw-bold">
+                        Everything Campus.
+                        <br>
+                        In One Place.
+                    </h1>
+
+                    <p class="lead mt-3">
+                        Buy and sell academic books, electronics,
+                        hostel items, stationery and more with students
+                        from your college.
+                    </p>
+
+                    <button
+                        class="btn btn-dark btn-lg me-2"
+                        onclick="showMarketplace()"
+                    >
+                        Explore Marketplace
+                    </button>
+
+                    <button
+                        class="btn btn-outline-dark btn-lg"
+                        onclick="showRegisterModal()"
+                    >
+                        Start Selling
+                    </button>
+
+                </div>
+
+                <div class="col-md-5 text-center mt-4 mt-md-0">
+
+                    <div class="hero-icon">
+                        <i class="bi bi-shop"></i>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <h3 class="mb-3">
+            Browse Categories
+        </h3>
+
+        <div
+            class="row g-3"
+            id="homeCategories"
+        ></div>
+
+    </section>
+
+
+    <!-- MARKETPLACE -->
+    <section id="marketplaceSection" class="d-none">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+                <h2 class="fw-bold mb-1">
+                    Marketplace
+                </h2>
+
+                <p class="text-muted mb-0">
+                    Find useful products from students.
+                </p>
+            </div>
+
+            <button
+                class="btn btn-dark"
+                onclick="showMarketplace()"
+            >
+                <i class="bi bi-arrow-clockwise"></i>
+                Refresh
+            </button>
+
+        </div>
+
+
+        <!-- FILTERS -->
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-body">
+
+                <div class="row g-3">
+
+                    <div class="col-md-4">
+
+                        <label class="form-label">
+                            Search
+                        </label>
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            class="form-control"
+                            placeholder="Search books, electronics..."
+                            oninput="loadMarketplace()"
+                        >
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <label class="form-label">
+                            Max Price
+                        </label>
+
+                        <input
+                            type="number"
+                            id="maxPriceInput"
+                            class="form-control"
+                            placeholder="₹"
+                            oninput="loadMarketplace()"
+                        >
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <label class="form-label">
+                            Category
+                        </label>
+
+                        <select
+                            id="categoryFilter"
+                            class="form-select"
+                            onchange="loadMarketplace()"
+                        >
+                            <option value="">
+                                All Categories
+                            </option>
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <label class="form-label">
+                            Condition
+                        </label>
+
+                        <select
+                            id="conditionFilter"
+                            class="form-select"
+                            onchange="loadMarketplace()"
+                        >
+                            <option value="">
+                                All
+                            </option>
+                            <option value="new">
+                                New
+                            </option>
+                            <option value="like_new">
+                                Like New
+                            </option>
+                            <option value="good">
+                                Good
+                            </option>
+                            <option value="fair">
+                                Fair
+                            </option>
+                            <option value="used">
+                                Used
+                            </option>
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <label class="form-label">
+                            Sort
+                        </label>
+
+                        <select
+                            id="sortFilter"
+                            class="form-select"
+                            onchange="loadMarketplace()"
+                        >
+                            <option value="newest">
+                                Newest
+                            </option>
+                            <option value="price_low">
+                                Price: Low
+                            </option>
+                            <option value="price_high">
+                                Price: High
+                            </option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div
+            class="row g-4"
+            id="marketplaceProducts"
+        ></div>
+
+    </section>
+
+
+    <!-- PRODUCT DETAILS -->
+    <section id="productDetailsSection" class="d-none">
+
+        <button
+            class="btn btn-outline-secondary mb-4"
+            onclick="showMarketplace()"
+        >
+            <i class="bi bi-arrow-left"></i>
+            Back to Marketplace
+        </button>
+
+        <div id="productDetails"></div>
+
+    </section>
+
+
+    <!-- WISHLIST -->
+    <section id="wishlistSection" class="d-none">
+
+        <div class="section-heading mb-4">
+
+            <h2 class="fw-bold">
+                <i class="bi bi-heart-fill text-danger"></i>
+                My Wishlist
+            </h2>
+
+            <p class="text-muted">
+                Products you've saved for later.
+            </p>
+
+        </div>
+
+        <div
+            class="row g-4"
+            id="wishlistProducts"
+        ></div>
+
+    </section>
+
+
+    <!-- COMPARISON -->
+    <section id="comparisonSection" class="d-none">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+                <h2 class="fw-bold">
+                    <i class="bi bi-arrow-left-right"></i>
+                    Compare Products
+                </h2>
+
+                <p class="text-muted mb-0">
+                    Compare up to 4 products.
+                </p>
+            </div>
+
+        </div>
+
+        <div id="comparisonContent"></div>
+
+    </section>
+
+
+    <!-- SELLER DASHBOARD -->
+    <section id="sellerDashboardSection" class="d-none">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold">
+                Seller Dashboard
+            </h2>
+
+            <p class="text-muted">
+                Manage your ReCampus products and orders.
+            </p>
+        </div>
+
+        <button
+            class="btn btn-dark"
+            onclick="showCreateListing()"
+        >
+            <i class="bi bi-plus-lg"></i>
+            Add Product
+        </button>
+
+    </div>
+
+
+    <!-- Seller Statistics -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-4">
+
+            <div class="dashboard-stat">
+                <i class="bi bi-box-seam"></i>
+
+                <div>
+                    <div class="stat-number" id="sellerProductCount">
+                        0
+                    </div>
+
+                    <div class="text-muted">
+                        Products
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="dashboard-stat">
+                <i class="bi bi-cart-check"></i>
+
+                <div>
+                    <div class="stat-number" id="sellerOrderCount">
+                        0
+                    </div>
+
+                    <div class="text-muted">
+                        Orders
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="dashboard-stat">
+                <i class="bi bi-currency-rupee"></i>
+
+                <div>
+                    <div class="stat-number" id="sellerRevenue">
+                        ₹0
+                    </div>
+
+                    <div class="text-muted">
+                        Revenue
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- My Products -->
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-header fw-bold">
+            <i class="bi bi-box-seam me-2"></i>
+            My Products
+        </div>
+
+        <div class="card-body">
+
+            <div id="sellerProducts"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Seller Orders -->
+    <div class="card shadow-sm">
+
+        <div class="card-header fw-bold">
+            <i class="bi bi-cart-check me-2"></i>
+            Customer Orders
+        </div>
+
+        <div class="card-body">
+
+            <div id="sellerOrders">
+
+                <div class="text-center text-muted py-4">
+                    <div class="spinner-border spinner-border-sm me-2"></div>
+                    Loading orders...
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+    <!-- CREATE LISTING -->
+    <section id="createListingSection" class="d-none">
+
+        <button
+            class="btn btn-outline-secondary mb-4"
+            onclick="showSellerDashboard()"
+        >
+            <i class="bi bi-arrow-left"></i>
+            Back to Seller Dashboard
+        </button>
+
+        <div class="card shadow-sm">
+
+            <div class="card-header">
+                <h4 class="mb-0">
+                    Add Product
+                </h4>
+            </div>
+
+            <div class="card-body">
+
+                <form id="createProductForm">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-8">
+
+                            <label class="form-label">
+                                Product Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="productName"
+                                class="form-control"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label class="form-label">
+                                Price
+                            </label>
+
+                            <input
+                                type="number"
+                                id="productPrice"
+                                class="form-control"
+                                min="0"
+                                step="0.01"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label class="form-label">
+                                Category
+                            </label>
+
+                            <select
+                                id="productCategory"
+                                class="form-select"
+                                required
+                            ></select>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label class="form-label">
+                                College
+                            </label>
+
+                            <select
+                                id="productCollege"
+                                class="form-select"
+                            ></select>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label class="form-label">
+                                Condition
+                            </label>
+
+                            <select
+                                id="productCondition"
+                                class="form-select"
+                                required
+                            >
+                                <option value="new">
+                                    New
+                                </option>
+
+                                <option value="like_new">
+                                    Like New
+                                </option>
+
+                                <option value="good">
+                                    Good
+                                </option>
+
+                                <option value="fair">
+                                    Fair
+                                </option>
+
+                                <option value="used">
+                                    Used
+                                </option>
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <label class="form-label">
+                                Quantity
+                            </label>
+
+                            <input
+                                type="number"
+                                id="productQuantity"
+                                class="form-control"
+                                min="1"
+                                value="1"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="col-md-8">
+
+                            <label class="form-label">
+                                Image URL
+                            </label>
+
+                            <input
+                                type="url"
+                                id="productImage"
+                                class="form-control"
+                                placeholder="https://..."
+                            >
+
+                        </div>
+
+                        <div class="col-12">
+
+                            <label class="form-label">
+                                Description
+                            </label>
+
+                            <textarea
+                                id="productDescription"
+                                class="form-control"
+                                rows="4"
+                                required
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-dark mt-4"
+                    >
+                        <i class="bi bi-plus-circle"></i>
+                        Publish Product
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="messagesSection" class="d-none">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold">
+                <i class="bi bi-chat-dots me-2"></i>
+                Messages
+            </h2>
+
+            <p class="text-muted mb-0">
+                Chat with buyers and sellers on ReCampus.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="row g-3">
+
+        <!-- Conversations -->
+
+        <div class="col-md-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-header fw-bold">
+                    Conversations
+                </div>
+
+                <div
+                    id="conversationsList"
+                    class="list-group list-group-flush"
+                >
+
+                    <div class="text-center text-muted py-4">
+
+                        <div
+                            class="spinner-border spinner-border-sm me-2"
+                        ></div>
+
+                        Loading...
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Chat -->
+
+        <div class="col-md-8">
+
+            <div class="card shadow-sm">
+
+                <div
+                    id="chatHeader"
+                    class="card-header fw-bold"
+                >
+                    Select a conversation
+                </div>
+
+
+                <div
+                    id="chatMessages"
+                    class="card-body"
+                    style="height: 400px; overflow-y: auto;"
+                >
+
+                    <div class="text-center text-muted py-5">
+
+                        <i
+                            class="bi bi-chat-square-text fs-1"
+                        ></i>
+
+                        <p class="mt-2">
+                            Select a conversation to start chatting.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-footer">
+
+                    <div class="input-group">
+
+                        <input
+                            type="text"
+                            id="chatMessageInput"
+                            class="form-control"
+                            maxlength="2000"
+                            placeholder="Type a message..."
+                            disabled
+                        >
+
+                        <button
+                            id="sendChatMessageButton"
+                            class="btn btn-dark"
+                            onclick="sendChatMessage()"
+                            disabled
+                        >
+                            <i class="bi bi-send"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+    <!-- BUYER DASHBOARD -->
+
+    <section id="buyerDashboardSection" class="d-none">
+
+        <div class="mb-4">
+
+            <h2 class="fw-bold">
+                Buyer Dashboard
+            </h2>
+
+            <p class="text-muted">
+                Manage your ReCampus shopping activity.
+            </p>
+
+        </div>
+
+
+        <div class="row g-3 mb-4">
+
+            <div class="col-md-4">
+
+                <div class="dashboard-stat">
+
+                    <i class="bi bi-cart-check"></i>
+
+                    <div>
+
+                        <div
+                            class="stat-number"
+                            id="buyerOrderCount"
+                        >
+                            0
+                        </div>
+
+                        <div class="text-muted">
+                            Orders
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="dashboard-stat">
+
+                    <i class="bi bi-heart"></i>
+
+                    <div>
+
+                        <div
+                            class="stat-number"
+                            id="buyerWishlistCount"
+                        >
+                            0
+                        </div>
+
+                        <div class="text-muted">
+                            Wishlist Items
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="dashboard-stat">
+
+                    <i class="bi bi-arrow-left-right"></i>
+
+                    <div>
+
+                        <div
+                            class="stat-number"
+                            id="buyerCompareCount"
+                        >
+                            0
+                        </div>
+
+                        <div class="text-muted">
+                            Compared Products
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="card shadow-sm">
+
+            <div class="card-header fw-bold">
+                Recent Orders
+            </div>
+
+            <div
+                class="card-body"
+                id="buyerRecentOrders"
+            ></div>
+
+        </div>
+
+
+        <div class="mt-4">
+
+            <button
+                class="btn btn-dark"
+                onclick="showMarketplace()"
+            >
+                <i class="bi bi-shop"></i>
+                Continue Shopping
+            </button>
+
+            <button
+                class="btn btn-outline-dark"
+                onclick="showWishlist()"
+            >
+                <i class="bi bi-heart"></i>
+                My Wishlist
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- ORDERS -->
+    <section id="ordersSection" class="d-none">
+
+        <h2 class="fw-bold mb-4">
+            My Orders
+        </h2>
+
+        <div id="ordersList"></div>
+
+    </section>
+
+
+    <!-- ADMIN DASHBOARD -->
+    <section id="adminDashboardSection" class="d-none">
+
+        <div class="mb-4">
+
+            <h2 class="fw-bold">
+                Admin Dashboard
+            </h2>
+
+            <p class="text-muted">
+                Manage ReCampus platform activity.
+            </p>
+
+        </div>
+
+        <div
+            class="row g-3 mb-4"
+            id="adminStats"
+        ></div>
+
+        <div class="card shadow-sm">
+
+            <div class="card-header fw-bold">
+                Pending Seller Verification
+            </div>
+
+            <div class="card-body">
+
+                <div id="pendingSellers"></div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- LOGIN MODAL -->
+<div
+    class="modal fade"
+    id="loginModal"
+    tabindex="-1"
+>
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    Login to ReCampus
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <form id="loginForm">
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-dark w-100"
+                    >
+                        Login
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<!-- REGISTER MODAL -->
+<div
+    class="modal fade"
+    id="registerModal"
+    tabindex="-1"
+>
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    Create ReCampus Account
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <form id="registerForm">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="registerName"
+                                class="form-control"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Email
+                            </label>
+
+                            <input
+                                type="email"
+                                id="registerEmail"
+                                class="form-control"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Mobile
+                            </label>
+
+                            <input
+                                type="text"
+                                id="registerMobile"
+                                class="form-control"
+                            >
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Account Type
+                            </label>
+
+                            <select
+                                id="registerAccountType"
+                                class="form-select"
+                            >
+                                <option value="buyer">
+                                    Buyer
+                                </option>
+
+                                <option value="student">
+                                    Student Seller
+                                </option>
+
+                                <option value="business">
+                                    Business Seller
+                                </option>
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="registerPassword"
+                                class="form-control"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Confirm Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="registerConfirmPassword"
+                                class="form-control"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-dark w-100 mt-4"
+                    >
+                        Create Account
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<!-- ============================================================
+     REVIEW MODAL
+============================================================ -->
+
+<div
+    class="modal fade"
+    id="reviewModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    <i class="bi bi-star-fill me-2"></i>
+                    Write a Review
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <input
+                    type="hidden"
+                    id="reviewProductId"
+                >
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        Product
+                    </label>
+
+                    <div
+                        id="reviewProductName"
+                        class="form-control bg-light"
+                    >
+                        Product
+                    </div>
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        Rating
+                    </label>
+
+                    <div
+                        id="reviewStars"
+                        class="d-flex gap-2"
+                    >
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-warning review-star"
+                            data-rating="1"
+                            onclick="selectReviewRating(1)"
+                        >
+                            <i class="bi bi-star"></i>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-warning review-star"
+                            data-rating="2"
+                            onclick="selectReviewRating(2)"
+                        >
+                            <i class="bi bi-star"></i>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-warning review-star"
+                            data-rating="3"
+                            onclick="selectReviewRating(3)"
+                        >
+                            <i class="bi bi-star"></i>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-warning review-star"
+                            data-rating="4"
+                            onclick="selectReviewRating(4)"
+                        >
+                            <i class="bi bi-star"></i>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-warning review-star"
+                            data-rating="5"
+                            onclick="selectReviewRating(5)"
+                        >
+                            <i class="bi bi-star"></i>
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="reviewRatingText"
+                        class="text-muted small mt-2"
+                    >
+                        Select a rating
+                    </div>
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label
+                        for="reviewComment"
+                        class="form-label fw-bold"
+                    >
+                        Comment
+                    </label>
+
+                    <textarea
+                        id="reviewComment"
+                        class="form-control"
+                        rows="4"
+                        maxlength="1000"
+                        placeholder="Share your experience with this product..."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-dark"
+                    onclick="submitReview()"
+                >
+                    <i class="bi bi-send me-1"></i>
+                    Submit Review
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Contact Seller Modal -->
+<div
+    class="modal fade"
+    id="messageSellerModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    <i class="bi bi-chat-dots me-2"></i>
+
+                    Contact Seller
+
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <input
+                    type="hidden"
+                    id="messageSellerId"
+                >
+
+                <input
+                    type="hidden"
+                    id="messageProductId"
+                >
+
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        Product
+                    </label>
+
+                    <div
+                        id="messageProductName"
+                        class="form-control bg-light"
+                    >
+                        Product
+                    </div>
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label
+                        for="sellerMessage"
+                        class="form-label fw-bold"
+                    >
+                        Message
+                    </label>
+
+                    <textarea
+                        id="sellerMessage"
+                        class="form-control"
+                        rows="5"
+                        maxlength="2000"
+                        placeholder="Ask the seller about this product..."
+                    ></textarea>
+
+                    <div class="form-text">
+                        Maximum 2000 characters.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-dark"
+                    onclick="sendSellerMessage()"
+                >
+
+                    <i class="bi bi-send me-1"></i>
+
+                    Send Message
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- TOAST -->
+<div
+    class="toast-container position-fixed bottom-0 end-0 p-3"
+    id="toastContainer"
+></div>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+></script>
+
+<script src="app.js"></script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+</body>
+</html>
