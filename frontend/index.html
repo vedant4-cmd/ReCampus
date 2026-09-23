@@ -1210,29 +1210,70 @@
 
                         <div class="col-md-6">
 
-                            <label class="form-label">
-                                Account Type
-                            </label>
+    <label class="form-label">
+        Account Type
+    </label>
 
-                            <select
-                                id="registerAccountType"
-                                class="form-select"
-                            >
-                                <option value="buyer">
-                                    Buyer
-                                </option>
+    <select
+        id="registerAccountType"
+        class="form-select"
+        onchange="toggleBusinessFields()"
+    >
+        <option value="buyer">
+            Buyer
+        </option>
 
-                                <option value="student">
-                                    Student Seller
-                                </option>
+        <option value="student">
+            Student Seller
+        </option>
 
-                                <option value="business">
-                                    Business Seller
-                                </option>
-                            </select>
+        <option value="business">
+            Business Seller
+        </option>
+    </select>
 
-                        </div>
+</div>
 
+
+<!-- BUSINESS DETAILS -->
+
+<div
+    id="businessRegistrationFields"
+    class="row g-3 d-none"
+>
+
+    <div class="col-md-6">
+
+        <label class="form-label">
+            Business Name
+        </label>
+
+        <input
+            type="text"
+            id="registerBusinessName"
+            class="form-control"
+            placeholder="Enter business name"
+        >
+
+    </div>
+
+
+    <div class="col-md-6">
+
+        <label class="form-label">
+            Owner Name
+        </label>
+
+        <input
+            type="text"
+            id="registerOwnerName"
+            class="form-control"
+            placeholder="Enter owner name"
+        >
+
+    </div>
+
+</div>
                         <div class="col-md-6">
 
                             <label class="form-label">

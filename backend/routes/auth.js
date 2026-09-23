@@ -34,28 +34,21 @@ router.post("/register", async (req, res) => {
 
   try {
     const {
-      name,
-      email,
-      password,
-      mobile,
-      accountType = "buyer",
-
-      // Student seller fields
-      collegeId,
-      collegeEmail,
-      studentIdNumber,
-      expectedGraduationYear,
-
-      // Business seller fields
-      businessName,
-      ownerName,
-      businessMobile,
-      businessAddress,
-      gstNumber,
-      shopEstablishmentNumber,
-      udyamNumber,
-      panNumber,
-    } = req.body;
+    name,
+    email,
+    mobile,
+    password,
+    accountType,
+    seller_type,
+    business_name: businessName,
+    owner_name: ownerName,
+    business_mobile: businessMobile,
+    business_address: businessAddress,
+    gst_number: gstNumber,
+    shop_establishment_number: shopEstablishmentNumber,
+    udyam_number: udyamNumber,
+    pan_number: panNumber
+} = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({

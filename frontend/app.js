@@ -420,95 +420,110 @@ document
 
         try {
 
-            const data =
-                await apiRequest("/auth/register", {
+    const accountType =
+    document.getElementById("registerAccountType").value;
 
-                    method: "POST",
+const data = await apiRequest("/auth/register", {
+    method: "POST",
 
-                    body: JSON.stringify({
-                        name:
-                            document.getElementById(
-                                "registerName"
-                            ).value.trim(),
+    body: JSON.stringify({
 
-                        email:
-                            document.getElementById(
-                                "registerEmail"
-                            ).value.trim(),
+        name:
+            document.getElementById("registerName")
+                .value.trim(),
 
-                        mobile:
-                            document.getElementById(
-                                "registerMobile"
-                            ).value.trim(),
+        email:
+            document.getElementById("registerEmail")
+                .value.trim(),
 
-                        password,
+        mobile:
+            document.getElementById("registerMobile")
+                .value.trim(),
 
-                        accountType:
-                            document.getElementById(
-                                "registerAccountType"
-                            ).value
-                    })
-                });
+        password,
 
+        accountType,
 
-            if (data.token) {
+        seller_type:
+            accountType === "business"
+                ? "business"
+                : accountType === "student"
+                    ? "student"
+                    : null,
 
-                localStorage.setItem(
-                    "token",
-                    data.token
-                );
-            }
+        business_name:
+            accountType === "business"
+                ? document.getElementById("registerBusinessName")
+                    .value.trim()
+                : null,
 
-
-            if (data.user) {
-
-                currentUser =
-                    data.user;
-
-                localStorage.setItem(
-                    "user",
-                    JSON.stringify(currentUser)
-                );
-            }
+        owner_name:
+            accountType === "business"
+                ? document.getElementById("registerOwnerName")
+                    .value.trim()
+                : null
+    })
+});
 
 
-            updateNavbar();
+    if (data.token) {
+
+        localStorage.setItem(
+            "token",
+            data.token
+        );
+    }
 
 
-            const modal =
-                bootstrap.Modal.getInstance(
-                    document.getElementById(
-                        "registerModal"
-                    )
-                );
+    if (data.user) {
 
-            if (modal) {
-                modal.hide();
-            }
+        currentUser =
+            data.user;
 
-
-            showToast(
-                data.message ||
-                "Account created successfully.",
-                "success"
-            );
+        localStorage.setItem(
+            "user",
+            JSON.stringify(currentUser)
+        );
+    }
 
 
-            if (currentUser) {
+    updateNavbar();
 
-                await loadCurrentUser();
 
-                if (
-                    currentUser.role === "seller"
-                ) {
-                    showSellerDashboard();
-                } else {
-                    showMarketplace();
-                }
+    const modal =
+        bootstrap.Modal.getInstance(
+            document.getElementById(
+                "registerModal"
+            )
+        );
 
-            }
+    if (modal) {
+        modal.hide();
+    }
 
-        } catch (error) {
+
+    showToast(
+        data.message ||
+        "Account created successfully.",
+        "success"
+    );
+
+
+    if (currentUser) {
+
+        await loadCurrentUser();
+
+        if (
+            currentUser.role === "seller"
+        ) {
+            showSellerDashboard();
+        } else {
+            showMarketplace();
+        }
+
+    }
+
+}  catch (error) {
 
             showToast(
                 error.message,
@@ -6372,6 +6387,39 @@ async function markConversationRead() {
 
     }
 
+}
+
+function toggleBusinessFields() {
+
+    const accountType =
+        document.getElementById("registerAccountType").value;
+
+    const businessFields =
+        document.getElementById("businessRegistrationFields");
+
+    const businessName =
+        document.getElementById("registerBusinessName");
+
+    const ownerName =
+        document.getElementById("registerOwnerName");
+
+    if (accountType === "business") {
+
+        businessFields.classList.remove("d-none");
+
+        businessName.required = true;
+        ownerName.required = true;
+
+    } else {
+
+        businessFields.classList.add("d-none");
+
+        businessName.required = false;
+        ownerName.required = false;
+
+        businessName.value = "";
+        ownerName.value = "";
+    }
 }
 
 initializeApp();
